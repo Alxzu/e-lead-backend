@@ -3,17 +3,38 @@
 require 'faker'
 
 # Clear existing data
-Product.delete_all
+Dimension.delete_all
 Tag.delete_all
 Review.delete_all
-Dimension.delete_all
 Image.delete_all
+Product.delete_all
 
 # Helper method to create random tags
 def random_tags
   categories = [ "beauty", "fragrances", "furniture", "groceries", "home-decoration", "kitchen-accessories" ]
   Array.new(rand(1..3)) { categories.sample }
 end
+
+store1 = Store.create!(name: 'Main Street Store', identification: 'MSS34')
+store2 = Store.create!(name: 'Downtown Store', identification: 'DTS32')
+
+store1.settings.create(data: {
+  primaryColor: '#34A853',
+  secondaryColor: '#F5F5F5',
+  fontFamily: 'Arial, sans-serif',
+  fontSize: '16px',
+  logo: '/logo.png',
+  navLinks: [ 'SHOP', 'MORE PRODUCT OPTIONS', 'GIFT CODES', 'RETURN POLICY', 'CONTACT' ]
+})
+
+store2.settings.create(data: {
+  primaryColor: '#FF5733',
+  secondaryColor: '#333333',
+  fontFamily: 'Verdana, sans-serif',
+  fontSize: '14px',
+  logo: '/logo2.png',
+  navLinks: [ 'HOME', 'SALE', 'BLOG', 'ABOUT', 'CONTACT' ]
+})
 
 # Create 300+ products with random data
 300.times do
