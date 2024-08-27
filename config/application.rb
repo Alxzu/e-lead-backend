@@ -38,5 +38,18 @@ module ELeadBackend
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # # CORS configuration
+    # config.middleware.insert_before 0, Rack::Cors do
+    #   allow do
+    #     origins "*" # Replace with your frontend URL
+
+    #     resource "*",
+    #       headers: :any,
+    #       methods: [ :get, :post, :put, :patch, :delete, :options, :head ],
+    #       expose: [ "Authorization" ],
+    #       credentials: true
+    #   end
+    # end
   end
 end
