@@ -8,6 +8,8 @@ Tag.delete_all
 Review.delete_all
 Image.delete_all
 Product.delete_all
+Setting.delete_all
+Store.delete_all
 
 # Helper method to create random tags
 def random_tags
@@ -15,8 +17,10 @@ def random_tags
   Array.new(rand(1..3)) { categories.sample }
 end
 
-store1 = Store.create!(name: 'Main Street Store', identification: 'MSS34')
-store2 = Store.create!(name: 'Downtown Store', identification: 'DTS32')
+store1 = Store.create!(name: 'tienda 1', identification: 'MSS34', host_name: 'https://tienda1.e-lead-dev.com')
+store2 = Store.create!(name: 'tienda 2', identification: 'MSS34', host_name: 'https://tienda2.e-lead-dev.com')
+store3 = Store.create!(name: 'tienda 3', identification: 'DTS32', host_name: 'https://tienda3.e-lead-dev.com')
+
 
 store1.settings.create(data: {
   primaryColor: '#34A853',
@@ -36,9 +40,19 @@ store2.settings.create(data: {
   navLinks: [ 'HOME', 'SALE', 'BLOG', 'ABOUT', 'CONTACT' ]
 })
 
+store3.settings.create(data: {
+  primaryColor: '#33dbff',
+  secondaryColor: '#F5F5F5',
+  fontFamily: 'Arial, bold',
+  fontSize: '12px',
+  logo: '/logo3.png',
+  navLinks: [ 'ABOUT', 'RETURN POLICY', 'BLOG', 'ABOUT US', 'CONTACT US' ]
+})
+
 # Create 300+ products with random data
 300.times do
   # Create a product
+  store = [store1, store2, store3].sample
   product = Product.create!(
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph(sentence_count: 3),
@@ -47,7 +61,7 @@ store2.settings.create(data: {
     discount_percentage: Faker::Number.decimal(l_digits: 2, r_digits: 2),
     rating: Faker::Number.between(from: 1.0, to: 5.0).round(2),
     stock: Faker::Number.between(from: 1, to: 100),
-    brand: Faker::Company.name,
+    brand: store.name,
     sku: Faker::Alphanumeric.alphanumeric(number: 8).upcase,
     weight: Faker::Number.decimal(l_digits: 1, r_digits: 2),
     warranty_information: "#{Faker::Number.between(from: 1, to: 5)} year warranty",
@@ -59,7 +73,8 @@ store2.settings.create(data: {
     meta_updated_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
     barcode: Faker::Number.number(digits: 13).to_s,
     qr_code: Faker::Internet.url(host: 'assets.dummyjson.com', path: '/public/qr-code.png'),
-    thumbnail: Faker::LoremFlickr.image(size: "50x60")
+    thumbnail: Faker::LoremFlickr.image(size: "50x60"),
+    store:
   )
 
   # Create dimensions
