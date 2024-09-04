@@ -18,8 +18,9 @@ def random_tags
 end
 
 store1 = Store.create!(name: 'tienda 1', identification: 'MSS34', host_name: 'https://tienda1.e-lead-dev.com')
-store2 = Store.create!(name: 'tienda 2', identification: 'MSS34', host_name: 'https://tienda2.e-lead-dev.com')
+store2 = Store.create!(name: 'tienda 2', identification: 'HIJ55', host_name: 'https://tienda2.e-lead-dev.com')
 store3 = Store.create!(name: 'tienda 3', identification: 'DTS32', host_name: 'https://tienda3.e-lead-dev.com')
+store4 = Store.create!(name: 'localhost', identification: 'LCH30', host_name: 'http://localhost:3000')
 
 
 store1.settings.create(data: {
@@ -49,10 +50,19 @@ store3.settings.create(data: {
   navLinks: [ 'ABOUT', 'RETURN POLICY', 'BLOG', 'ABOUT US', 'CONTACT US' ]
 })
 
+store4.settings.create(data: {
+  primaryColor: '#333333',
+  secondaryColor: '#FF5733',
+  fontFamily: 'Verdana, sans-serif',
+  fontSize: '18px',
+  logo: '/logo4.png',
+  navLinks: [ 'ABOUT', 'RETURN POLICY', 'BLOG', 'ABOUT US', 'CONTACT US' ]
+})
+
 # Create 300+ products with random data
 300.times do
   # Create a product
-  store = [store1, store2, store3].sample
+  store = [store1, store2, store3, store4].sample
   product = Product.create!(
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph(sentence_count: 3),
