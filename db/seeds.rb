@@ -17,10 +17,10 @@ def random_tags
   Array.new(rand(1..3)) { categories.sample }
 end
 
-store1 = Store.create!(name: 'tienda 1', identification: 'MSS34', host_name: 'https://tienda1.e-lead-dev.com')
-store2 = Store.create!(name: 'tienda 2', identification: 'HIJ55', host_name: 'https://tienda2.e-lead-dev.com')
-store3 = Store.create!(name: 'tienda 3', identification: 'DTS32', host_name: 'https://tienda3.e-lead-dev.com')
-store4 = Store.create!(name: 'localhost', identification: 'LCH30', host_name: 'http://localhost:3000')
+store1 = Store.create!(name: 'tienda 1', identification: 'MSS34', host_name: 'tienda1.e-lead-dev.com')
+store2 = Store.create!(name: 'tienda 2', identification: 'HIJ55', host_name: 'tienda2.e-lead-dev.com')
+store3 = Store.create!(name: 'tienda 3', identification: 'DTS32', host_name: 'tienda3.e-lead-dev.com')
+store4 = Store.create!(name: 'localhost', identification: 'LCH30', host_name: 'localhost:3000')
 
 
 store1.settings.create(data: {
